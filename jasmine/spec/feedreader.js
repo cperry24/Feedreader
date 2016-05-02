@@ -81,4 +81,11 @@ $(function() {
        }); 
     });
     
+    
+   /* describe('Error handling', function() {
+        if (typeof var == 'undefined') {
+            expect(var).tobe(false);
+        }
+    });*/
+    
 }());
