@@ -30,11 +30,7 @@ $(function() {
     
     //Menu test suite
     describe('The menu', function() {
-        //Store reference to document.body element selector
-        var feedBody = document.body;
-        
-        
-        
+
         //Test if the menu is hidden by default
         it('hidden by default', function() {
             expect($('body').hasClass('menu-hidden')).toBe(true);
@@ -43,14 +39,14 @@ $(function() {
         
         //Check if the menu appears on click
         it('changes to visible', function() {
-            $('a.menu-icon-link').trigger('click');
-            expect(document.className).not.toBe('menu-hidden');
+            $('a.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).not.toBe(true);
         });
         
         //Check if the menu hides on click
         it('changes to hidden', function() {
-            $('a.menu-icon-link').trigger('click');
-            expect(feedBody.className).toBe('menu-hidden');
+            $('a.menu-icon-link').click();
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
         
     });
@@ -65,7 +61,7 @@ $(function() {
         //Test if .entry exists within the .feed container
         it('has entry', function() {
             var feed = $('.feed .entry');
-           expect(feed).toBeGreaterThan('');
+           expect(feed.length).toBeGreaterThan(0);
         });
     });
 
