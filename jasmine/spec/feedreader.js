@@ -13,7 +13,15 @@ $(function() {
         it('URL defined', function() {
             allFeeds.forEach(function(myURL) {
                expect(myURL.url).toBeDefined();
-               expect(myURL.url).not.toBe('');
+               expect(myURL.url.length).not.toBe(0);
+            });      
+        });
+        
+        //Loop through each feed and check if a name has been defined and is not empty 
+        it('Name defined', function() {
+            allFeeds.forEach(function(myName) {
+                expect(myName.name).toBeDefined();
+                expect(myName.name.length).not.toBe(0);
             });
         });
     });
@@ -29,14 +37,14 @@ $(function() {
         
         //Test if the menu is hidden by default
         it('hidden by default', function() {
-            expect(feedBody.className).toBe('menu-hidden');
+            expect($('body').hasClass('menu-hidden')).toBe(true);
         });
         
         
         //Check if the menu appears on click
         it('changes to visible', function() {
             $('a.menu-icon-link').trigger('click');
-            expect(document.classList).not.toBe('menu-hidden');
+            expect(document.className).not.toBe('menu-hidden');
         });
         
         //Check if the menu hides on click
@@ -50,9 +58,7 @@ $(function() {
     //Inital Entries test suite -- Run beforeEach function each time to check if content has been loaded
     describe('Initial Entries', function() {
             beforeEach(function(done){
-                loadFeed(0, function() {
-                    done();
-                });
+                loadFeed(0, done);
             });
         
          
@@ -68,24 +74,24 @@ $(function() {
     //New Feed selection test suite
     describe('New Feed Selection', function() {
         
-        //Test that the content has been loaded because of Async 
+        //Declare variable for later use
+        var feed;
+        
+        //Run before test
         beforeEach(function(done) {
             loadFeed(0, function() {
+                feed = $('.feed').html();
                 done();
             });
         });
         
         //If content has changed, expect the feed list to not be empty
-       it('has been loaded', function() {
-           expect('feed-list').not.toBe('');
+       it('has been loaded', function(done) {
+           loadFeed(1, function() {
+            expect($('.feed').html()).not.toEqual(feed); 
+            done();
+           });
        }); 
     });
-    
-    
-   /* describe('Error handling', function() {
-        if (typeof var == 'undefined') {
-            expect(var).tobe(false);
-        }
-    });*/
     
 }());
